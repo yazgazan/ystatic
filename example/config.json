@@ -1,0 +1,9 @@
+{
+  "Listen": "localhost:1323",
+  "LogLevel": 0,
+  "Root": "www",
+  "Indexes": ["index.html", "index.txt"],
+  "Templates": [".html", ".txt", ".view", ".md"],
+  "Markdown": [".md", ".markdown"],
+  "Delimiters": ["{{", "}}"]
+}

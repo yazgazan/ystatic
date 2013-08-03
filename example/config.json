@@ -4,6 +4,8 @@
   "Root": "www",
   "Indexes": ["index.html", "index.txt"],
   "Templates": [".html", ".txt", ".view", ".md"],
+  "Frame": "frame.html",
+  "Framable": [".md", ".txt"],
   "Markdown": [".md", ".markdown"],
   "Delimiters": ["{{", "}}"]
 }

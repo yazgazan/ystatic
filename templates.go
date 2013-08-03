@@ -6,6 +6,8 @@ import (
   "io/ioutil"
   "os"
   "html/template"
+  "bytes"
+  "fmt"
 )
 
 func (s Server) HandleTemplate(
@@ -34,7 +36,25 @@ func (s Server) HandleTemplate(
         500,
       }
     }
-    tpl.Execute(w, variables)
+    framable := s.MatchExtension(file.Name(), s.Config.Framable)
+    if len(s.Config.Frame) == 0 || ! framable {
+      tpl.Execute(w, variables)
+      return nil
+    }
+    var buf bytes.Buffer
+    tpl.Execute(&buf, variables)
+    frameFileName := fmt.Sprintf("%s/%s", s.Config.Root, s.Config.Frame)
+    frameContent, frameErr := ioutil.ReadFile(frameFileName)
+    if frameErr != nil {
+      return &ServerError{
+        fmt.Sprintf(M_frame_failed, s.Config.Frame),
+        500,
+      }
+    }
+    frame := template.New("frame")
+    frame.Delims(s.Config.Delimiters[0], s.Config.Delimiters[1])
+    frame.Parse(string(frameContent))
+    frame.Execute(w, template.HTML(buf.String()))
   return nil
 }
 

@@ -23,6 +23,19 @@ func (s *Server) LoadConfig() error  {
   return nil
 }
 
+func (s *Server) LoadVars2() (map[string]string, error)  {
+  var ret = make(map[string]string)
+  buf, errReadFile := ioutil.ReadFile(C_serverVarsFilename)
+  if errReadFile != nil  {
+    return nil, errReadFile
+  }
+  errJson := json.Unmarshal(buf, &ret)
+  if errJson != nil  {
+    return nil, errJson
+  }
+  return ret, nil
+}
+
 func (s *Server) LoadVars() error  {
   buf, errReadFile := ioutil.ReadFile(C_serverVarsFilename)
   if errReadFile != nil  {

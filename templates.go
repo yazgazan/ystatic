@@ -27,7 +27,14 @@ func (s Server) HandleTemplate(
     tpl := template.New("main")
     tpl.Delims(s.Config.Delimiters[0], s.Config.Delimiters[1])
     tpl.Parse(string(fileContent))
-    tpl.Execute(w, s.Variables)
+    variables, VarsErr := s.LoadVars2()
+    if VarsErr != nil {
+      return &ServerError{
+        M_vars_not_found,
+        500,
+      }
+    }
+    tpl.Execute(w, variables)
   return nil
 }
 

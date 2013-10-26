@@ -10,7 +10,7 @@ import (
 
 func (s Server) TryIndexes(dirPath string) (*os.File, error) {
   for _, indexName := range s.Config.Indexes {
-    pathName := fmt.Sprintf("%s%s", dirPath, indexName)
+    pathName := fmt.Sprintf("%s/%s", dirPath, indexName)
     file, err := s.TryFile(pathName)
     if err == nil {
       return file, nil

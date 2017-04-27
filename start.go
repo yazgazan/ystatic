@@ -1,15 +1,13 @@
-
 package main
 
 import (
-  "net/http"
-  "fmt"
+	"fmt"
+	"net/http"
 )
 
 func (s *Server) Start() error {
-  http.HandleFunc("/", HttpHandler(s))
-  s.Log(fmt.Sprintf(M_server_start, s.Config.Listen))
-  err := http.ListenAndServe(s.Config.Listen, nil)
-  return err
+	http.HandleFunc("/", Handler(s))
+	s.Log(fmt.Sprintf(serverStart, s.Config.Listen))
+	err := http.ListenAndServe(s.Config.Listen, nil)
+	return err
 }
-

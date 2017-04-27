@@ -1,24 +1,21 @@
-
 package main
 
 const (
-  log_level_log   = iota
-  log_level_warn  = iota
-  log_level_error = iota
+	logLevelLog   = iota
+	logLevelWarn  = iota
+	logLevelError = iota
 )
 
-const C_serverConfigFilename = "config.json"
-const C_serverVarsFilename = "vars.json"
+const serverConfigFilename = "config.json"
+const serverVarsFilename = "vars.json"
 
-const C_configIndexesMax = 16
-const C_configTemplatesMax = 16
-const C_configMarkdownMax = 16
-const C_configFramableMax = 16
-const C_configDefaultDelimiterO = "{{"
-const C_configDefaultDelimiterC = "}}"
+const configIndexesMax = 16
+const configTemplatesMax = 16
+const configMarkdownMax = 16
+const configFramableMax = 16
+const configDefaultDelimiterO = "{{"
+const configDefaultDelimiterC = "}}"
 
-const C_defaultListen = "localhost:1234"
-const C_defaultLogLevel = log_level_log
-const C_defaultRoot = "www"
-const C_defaultFrame = ""
-
+const defaultListen = "localhost:1234"
+const defaultRoot = "www"
+const defaultFrame = ""

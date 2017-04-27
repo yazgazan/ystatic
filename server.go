@@ -1,57 +1,53 @@
-
 package main
 
 import (
-  "io/ioutil"
-  "encoding/json"
+	"encoding/json"
+	"io/ioutil"
 )
 
 type Server struct {
-  Config    *Config
-  Variables map[string]string
+	Config    *Config
+	Variables map[string]string
 }
 
-func (s *Server) LoadConfig() error  {
-  buf, errReadFile := ioutil.ReadFile(C_serverConfigFilename)
-  if errReadFile != nil  {
-    return errReadFile
-  }
-  errJson := json.Unmarshal(buf, &s.Config)
-  if errJson != nil  {
-    return errJson
-  }
-  return nil
+func (s *Server) LoadConfig() error {
+	buf, err := ioutil.ReadFile(serverConfigFilename)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(buf, &s.Config)
 }
 
-func (s *Server) LoadVars2() (map[string]string, error)  {
-  var ret = make(map[string]string)
-  buf, errReadFile := ioutil.ReadFile(C_serverVarsFilename)
-  if errReadFile != nil  {
-    return nil, errReadFile
-  }
-  errJson := json.Unmarshal(buf, &ret)
-  if errJson != nil  {
-    return nil, errJson
-  }
-  return ret, nil
+func (s *Server) LoadVars2() (map[string]string, error) {
+	var err error
+	ret := make(map[string]string)
+
+	buf, err := ioutil.ReadFile(serverVarsFilename)
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(buf, &ret)
+	if err != nil {
+		return nil, err
+	}
+
+	return ret, nil
 }
 
-func (s *Server) LoadVars() error  {
-  buf, errReadFile := ioutil.ReadFile(C_serverVarsFilename)
-  if errReadFile != nil  {
-    return errReadFile
-  }
-  errJson := json.Unmarshal(buf, &s.Variables)
-  if errJson != nil  {
-    return errJson
-  }
-  return nil
+func (s *Server) LoadVars() error {
+	buf, err := ioutil.ReadFile(serverVarsFilename)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(buf, &s.Variables)
 }
 
 func ServerInit() *Server {
-  return &Server{
-    ConfigInit(),
-    make(map[string]string),
-  }
+	return &Server{
+		ConfigInit(),
+		make(map[string]string),
+	}
 }
-
